@@ -11,6 +11,8 @@ namespace GeyikBot
 {
     public class EmptyBot : ActivityHandler
     {
+
+        private const string WelcomeText = "Sana çok güzel dakikalar yaþatacaðým.!";
         protected override async Task OnMembersAddedAsync(IList<ChannelAccount> membersAdded, ITurnContext<IConversationUpdateActivity> turnContext, CancellationToken cancellationToken)
         {
             foreach (var member in membersAdded)
@@ -22,20 +24,36 @@ namespace GeyikBot
             }
         }
 
-        protected override async Task OnMessageActivityAsync(ITurnContext<IMessageActivity> turnContext, CancellationToken cancellationToken)
-        {   
-
-
-            if (turnContext.Activity.Text == "Hello")
+       
+        public override async Task OnTurnAsync(ITurnContext turnContext, CancellationToken cancellationToken = default)
+        {
+            if (turnContext.Activity.Type is ActivityTypes.Message)
             {
-                
-                await turnContext.SendActivityAsync(MessageFactory.Text($"From: {turnContext.Activity.From}"), cancellationToken);
-                await turnContext.SendActivityAsync(MessageFactory.Text($"Recipient.Name: {turnContext.Activity.Recipient.Name}"), cancellationToken);
-                await turnContext.SendActivityAsync(MessageFactory.Text($"Recipient.Id: {turnContext.Activity.Recipient.Id}"), cancellationToken);
-                await turnContext.SendActivityAsync(MessageFactory.Text($"Recipient.Role: {turnContext.Activity.Recipient.Role}"), cancellationToken);
-                await turnContext.SendActivityAsync(MessageFactory.Text($"Recipient.Role: {turnContext.Activity.Type}"), cancellationToken);
+                string input = turnContext.Activity.Text;
+                if (input == "!Naber")
+                await turnContext.SendActivityAsync(MessageFactory.Text($"Ýyi senden naber cýnýms?"), cancellationToken);
             }
-            
+            else if (turnContext.Activity.Type == ActivityTypes.ConversationUpdate)
+            {
+                if (turnContext.Activity.MembersAdded != null)
+                {
+                    // Send a welcome message to the user and tell them what actions they may perform to use this bot
+                    await SendWelcomeMessageAsync(turnContext, cancellationToken);
+                }
+            }
+        }
+
+        private static async Task SendWelcomeMessageAsync(ITurnContext turnContext, CancellationToken cancellationToken)
+        {
+            foreach (var member in turnContext.Activity.MembersAdded)
+            {
+                if (member.Id != turnContext.Activity.Recipient.Id)
+                {
+                    await turnContext.SendActivityAsync(
+                        $"Oo Hoþ Geldin {member.Name}. {WelcomeText}",
+                        cancellationToken: cancellationToken);
+                }
+            }
         }
     }
 }
