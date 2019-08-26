@@ -33,6 +33,7 @@ namespace GeyikBot
                 await turnContext.SendActivityAsync(MessageFactory.Text($"Recipient.Name: {turnContext.Activity.Recipient.Name}"), cancellationToken);
                 await turnContext.SendActivityAsync(MessageFactory.Text($"Recipient.Id: {turnContext.Activity.Recipient.Id}"), cancellationToken);
                 await turnContext.SendActivityAsync(MessageFactory.Text($"Recipient.Role: {turnContext.Activity.Recipient.Role}"), cancellationToken);
+                await turnContext.SendActivityAsync(MessageFactory.Text($"Recipient.Role: {turnContext.Activity.Type}"), cancellationToken);
             }
             
         }
