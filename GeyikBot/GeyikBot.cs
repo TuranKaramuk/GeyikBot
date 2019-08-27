@@ -31,7 +31,7 @@ namespace GeyikBot
                 if (input == "GeyikBot sa" || input == "GeyikBot SA" || input == "GeyikBot Sa")
                     await turnContext.SendActivityAsync(MessageFactory.Text($"Aleyküm Selam, Topraaaam."), cancellationToken);
                 if (input == "GeyikBot Naber Goçum" || input == "GeyikBot naber goçum" || input == "GeyikBot Naber goçum" || input == "GeyikBot goçum" || input == "GeyikBot Goçum")
-                    await turnContext.SendActivityAsync(MessageFactory.Text($"Aleyküm Selam, Topraaaam."), cancellationToken);
+                    await turnContext.SendActivityAsync(MessageFactory.Text($"Gocum mu? Hayýrdýr La sen bebe."), cancellationToken);
             }
             else if (turnContext.Activity.Type == ActivityTypes.ConversationUpdate)
             {
