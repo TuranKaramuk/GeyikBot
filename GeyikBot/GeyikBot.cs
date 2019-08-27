@@ -22,10 +22,15 @@ namespace GeyikBot
             if (turnContext.Activity.Type is ActivityTypes.Message)
             {
                 string input = GetTextWithoutMentions(turnContext);
-                await turnContext.SendActivityAsync(MessageFactory.Text($"Ýnput : {input}"), cancellationToken);
-                if (input == "!Naber")
-                await turnContext.SendActivityAsync(MessageFactory.Text($"iyi, senden naber cinims?"), cancellationToken);
-                if (input == "sa" || input == "SA" || input == "Sa" )
+                //await turnContext.SendActivityAsync(MessageFactory.Text($"Input : {input}"), cancellationToken);
+                
+                if (input == "GeyikBot sa" || input == "GeyikBot SA" || input == "GeyikBot Sa")
+                    await turnContext.SendActivityAsync(MessageFactory.Text($"Aleyküm Selam, Topraaaam."), cancellationToken);
+                if (input == "GeyikBot Naber" || input == "GeyikBot Nasýlsýn?" || input == "GeyikBot Naber?" || input == "GeyikBot nasýlsýn?")
+                    await turnContext.SendActivityAsync(MessageFactory.Text($"Ne olsun, seni sormali?."), cancellationToken);
+                if (input == "GeyikBot sa" || input == "GeyikBot SA" || input == "GeyikBot Sa")
+                    await turnContext.SendActivityAsync(MessageFactory.Text($"Aleyküm Selam, Topraaaam."), cancellationToken);
+                if (input == "GeyikBot Naber Goçum" || input == "GeyikBot naber goçum" || input == "GeyikBot Naber goçum" || input == "GeyikBot goçum" || input == "GeyikBot Goçum")
                     await turnContext.SendActivityAsync(MessageFactory.Text($"Aleyküm Selam, Topraaaam."), cancellationToken);
             }
             else if (turnContext.Activity.Type == ActivityTypes.ConversationUpdate)
