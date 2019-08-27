@@ -12,9 +12,9 @@ namespace GeyikBot
 {
     public class EmptyBot : ActivityHandler
     {
-        
 
-        private const string WelcomeText = "Sana çok güzel dakikalar yaþatacaðým.!";
+        private List<string> additionalWordList;
+        private const string WelcomeText = "Sana cok guzel dakikalar yasatacagim.!";
 
         public override async Task OnTurnAsync(ITurnContext turnContext, CancellationToken cancellationToken = default)
         {
@@ -22,8 +22,8 @@ namespace GeyikBot
             if (turnContext.Activity.Type is ActivityTypes.Message)
             {
                 string input = GetTextWithoutMentions(turnContext);
-                await turnContext.SendActivityAsync(MessageFactory.Text($"Input : {input}"), cancellationToken);
-                
+                //await turnContext.SendActivityAsync(MessageFactory.Text($"Input : {input}"), cancellationToken);
+
                 if (input == "sa" || input == "SA" || input == "Sa")
                     await turnContext.SendActivityAsync(MessageFactory.Text($"Aleyküm Selam, Topraaaam."), cancellationToken);
                 else if (input == "Naber" || input == "Nasýlsýn?" || input == "Naber?" || input == "nasýlsýn?")
@@ -35,7 +35,11 @@ namespace GeyikBot
                 else if (input == "Naber Goçum" || input == "naber goçum" || input == "Naber goçum" || input == "goçum" || input == "Goçum" || input == "gocum")
                     await turnContext.SendActivityAsync(MessageFactory.Text($"Gocum mu? Hayirdir La sen bebe."), cancellationToken);
                 else
-                    await turnContext.SendActivityAsync(MessageFactory.Text($"Simdilik buna cevap vermiyorum."), cancellationToken);
+                {
+                    var memberName = turnContext.Activity.Recipient.Name;
+                    await turnContext.SendActivityAsync(MessageFactory.Text($"Simdilik buna cevap veremiyorum {memberName}. Ilerde belki, bakalim kader."), cancellationToken);
+                    additionalWordList.Add(input);
+                }
             }         
             
             else if (turnContext.Activity.Type == ActivityTypes.ConversationUpdate)
@@ -47,6 +51,8 @@ namespace GeyikBot
                 }
             }
         }
+
+
 
         public string  GetTextWithoutMentions(ITurnContext turnContext)
         {
