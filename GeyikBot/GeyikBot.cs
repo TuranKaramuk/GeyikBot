@@ -36,9 +36,9 @@ namespace GeyikBot
                     await turnContext.SendActivityAsync(MessageFactory.Text($"Gocum mu? Hayirdir La sen bebe."), cancellationToken);
                 else
                 {
-                    var memberName = turnContext.Activity.Recipient.Name;
+                    var memberName = turnContext.Activity.From.Name;
                     await turnContext.SendActivityAsync(MessageFactory.Text($"Simdilik buna cevap veremiyorum {memberName}. Ilerde belki, bakalim kader."), cancellationToken);
-                    additionalWordList.Add(input);
+                    //additionalWordList.Add(input);
                 }
             }         
             
