@@ -14,45 +14,14 @@ namespace GeyikBot
        
 
         private const string WelcomeText = "Sana çok güzel dakikalar yaþatacaðým.!";
-        protected override async Task OnMembersAddedAsync(IList<ChannelAccount> membersAdded, ITurnContext<IConversationUpdateActivity> turnContext, CancellationToken cancellationToken)
-        {
-            foreach (var member in membersAdded)
-            {
-                if (member.Id != turnContext.Activity.Recipient.Id)
-                {
-                    await turnContext.SendActivityAsync(MessageFactory.Text($"Hello world!"), cancellationToken);
-                }
-            }
-        }
-
-       
+   
         public override async Task OnTurnAsync(ITurnContext turnContext, CancellationToken cancellationToken = default)
         {
-            Mention[] m = turnContext.Activity.GetMentions();
-  
-            var messageText = turnContext.Activity.Text;
-
-            for (int i = 0; i < m.Length; i++)
-            {
-                if (m[i].Mentioned.Id == turnContext.Activity.Recipient.Id)
-                {
-                    //Bot is in the @mention list.
-                    //The below example will strip the bot name out of the message, so you can parse it as if it wasn't included. Note that the Text object will contain the full bot name, if applicable.
-                    if (m[i].Text != null)
-                        messageText = messageText.Replace(m[i].Text, "");
-                }
-                
-            }
-            
-                await turnContext.SendActivityAsync(MessageFactory.Text($"{m.Length}"), cancellationToken);
-            await turnContext.SendActivityAsync(MessageFactory.Text($"{turnContext.Activity.Recipient.Id}"), cancellationToken);
-            await turnContext.SendActivityAsync(MessageFactory.Text($"{messageText}"), cancellationToken);
-
-
+          
             if (turnContext.Activity.Type is ActivityTypes.Message)
             {
                 string input = turnContext.Activity.Text;
-                if (input == "!Naber")
+                if (input == "@GeyikBot !Naber")
                 await turnContext.SendActivityAsync(MessageFactory.Text($"Ýyi senden naber cýnýms?"), cancellationToken);
             }
             else if (turnContext.Activity.Type == ActivityTypes.ConversationUpdate)
