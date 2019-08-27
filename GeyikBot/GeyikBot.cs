@@ -22,7 +22,7 @@ namespace GeyikBot
             if (turnContext.Activity.Type is ActivityTypes.Message)
             {
                 string input = GetTextWithoutMentions(turnContext);
-                //await turnContext.SendActivityAsync(MessageFactory.Text($"Input : {input}"), cancellationToken);
+                await turnContext.SendActivityAsync(MessageFactory.Text($"Input : {input}"), cancellationToken);
                 
                 if (input == "sa" || input == "SA" || input == "Sa")
                     await turnContext.SendActivityAsync(MessageFactory.Text($"Aleyküm Selam, Topraaaam."), cancellationToken);
