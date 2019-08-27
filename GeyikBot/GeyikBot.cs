@@ -22,6 +22,7 @@ namespace GeyikBot
             if (turnContext.Activity.Type is ActivityTypes.Message)
             {
                 string input = GetTextWithoutMentions(turnContext);
+                await turnContext.SendActivityAsync(MessageFactory.Text($"Ýnput : {input}"), cancellationToken);
                 if (input == "!Naber")
                 await turnContext.SendActivityAsync(MessageFactory.Text($"iyi, senden naber cinims?"), cancellationToken);
                 if (input == "sa" || input == "SA" || input == "Sa" )
