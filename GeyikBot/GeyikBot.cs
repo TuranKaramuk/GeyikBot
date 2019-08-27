@@ -24,15 +24,20 @@ namespace GeyikBot
                 string input = GetTextWithoutMentions(turnContext);
                 //await turnContext.SendActivityAsync(MessageFactory.Text($"Input : {input}"), cancellationToken);
                 
-                if (input == "GeyikBot sa" || input == "GeyikBot SA" || input == "GeyikBot Sa")
+                if (input == "sa" || input == "SA" || input == "Sa")
                     await turnContext.SendActivityAsync(MessageFactory.Text($"Aleyküm Selam, Topraaaam."), cancellationToken);
-                if (input == "GeyikBot Naber" || input == "GeyikBot Nasılsın?" || input == "GeyikBot Naber?" || input == "GeyikBot nasılsın?")
+                else if (input == "Naber" || input == "Nasılsın?" || input == "Naber?" || input == "nasılsın?")
                     await turnContext.SendActivityAsync(MessageFactory.Text($"Ne olsun, seni sormali?."), cancellationToken);
-                if (input == "GeyikBot sa" || input == "GeyikBot SA" || input == "GeyikBot Sa")
+                else if (input == "GeyikBot")
+                    await turnContext.SendActivityAsync(MessageFactory.Text($"Efendim."), cancellationToken);
+                else if (input == "sa" || input == "SA" || input == "Sa")
                     await turnContext.SendActivityAsync(MessageFactory.Text($"Aleyküm Selam, Topraaaam."), cancellationToken);
-                if (input == "GeyikBot Naber Goçum" || input == "GeyikBot naber goçum" || input == "GeyikBot Naber goçum" || input == "GeyikBot goçum" || input == "GeyikBot Goçum")
-                    await turnContext.SendActivityAsync(MessageFactory.Text($"Gocum mu? Hayırdır La sen bebe."), cancellationToken);
-            }
+                else if (input == "Naber Goçum" || input == "naber goçum" || input == "Naber goçum" || input == "goçum" || input == "Goçum" || input == "gocum")
+                    await turnContext.SendActivityAsync(MessageFactory.Text($"Gocum mu? Hayirdir La sen bebe."), cancellationToken);
+                else
+                    await turnContext.SendActivityAsync(MessageFactory.Text($"Simdilik buna cevap vermiyorum."), cancellationToken);
+            }         
+            
             else if (turnContext.Activity.Type == ActivityTypes.ConversationUpdate)
             {
                 if (turnContext.Activity.MembersAdded != null)
@@ -58,11 +63,14 @@ namespace GeyikBot
                     //Bot is in the @mention list.
                     //The below example will strip the bot name out of the message, so you can parse it as if it wasn't included. Note that the Text object will contain the full bot name, if applicable.
                     if (m[i].Text != null)
-                        messageText = messageText.Replace(m[i].Text, "");
+                    { messageText = messageText.Replace(m[i].Text, ""); }
+                    messageText = messageText.Replace("GeyikBot", "");
                 }
             }
-
-            return messageText;
+            if (messageText.Length > 1)
+                return messageText.Trim();
+            else
+                return "GeyikBot";
         }
 
 
